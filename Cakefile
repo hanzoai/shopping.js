@@ -11,7 +11,7 @@ option '-v', '--verbose',           'enable verbose test logging'
 task 'clean', 'clean project', ->
   exec 'rm -rf lib'
 
-task 'build', 'build project', (cb) ->
+task 'build', 'build project', (options, cb) ->
   todo = 2
   done = (err) ->
     throw err if err?
@@ -28,7 +28,7 @@ task 'build', 'build project', (cb) ->
     fs.writeFile 'shop.js', (bundle.toString opts), 'utf8', done
 
 task 'build-min', 'build project', ['build'], ->
-  exec 'uglifyjs shop.js --compress --mangle --lint=false > shop.min.js'
+  exec 'uglifyjs shop.js --compress --mangle -o shop.min.js'
 
 server = do require 'connect'
 
